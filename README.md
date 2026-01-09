@@ -20,21 +20,35 @@ Conform organizării interne a echipei noastre:
 • Student 4: Responsabil cu managementul depozitului GitHub, realizarea diagramei bloc și redactarea documentației tehnice a proiectului.
 
 🛠️ Funcționalități Principale
-1. Citirea și Validarea Datelor
+Citirea și Validarea Datelor
+
 • Programul acceptă între 8 și 16 octeți introduși în format hexazecimal (ex: 3F 7A 12...).
+
 • Citirea se realizează prin întreruperea DOS INT 21h, funcția AH=0Ah.
-2. Calculul Cuvântului C (16 biți)
+
+Calculul Cuvântului C (16 biți)
+
 Cuvântul C este generat astfel:
-    • Biții 0-3: Rezultatul operației XOR între primii 4 biți ai primului octet și ultimii 4 biți ai ultimului octet.
-    • Biții 4-7: Rezultatul operației OR între biții 2-5 ai fiecărui octet din șir.
-    • Biții 8-15: Suma tuturor octeților din șir, calculată modulo 256.
-3. Manipularea Șirului
-    • Sortare: Șirul este ordonat descrescător folosind un algoritm de sortare eficient.
-    • Analiza biților: Se determină octetul cu cel mai mare număr de biți de 1 (minim 3 biți) și se afișează poziția acestuia în șir.
-4. Rotații și Afișare 
-    • Pentru fiecare octet, se calculează suma primilor 2 biți ($N$).
-    • Octetul este rotit circular spre stânga cu $N$ poziții.
-    • Rezultatele sunt afișate interactiv în formatele binar și hexazecimal.
+
+• Biții 0-3: Rezultatul operației XOR între primii 4 biți ai primului octet și ultimii 4 biți ai ultimului octet.
+
+• Biții 4-7: Rezultatul operației OR între biții 2-5 ai fiecărui octet din șir.
+
+• Biții 8-15: Suma tuturor octeților din șir, calculată modulo 256.
+
+Manipularea Șirului
+
+• Sortare: Șirul este ordonat descrescător folosind un algoritm de sortare eficient.
+    
+• Analiza biților: Se determină octetul cu cel mai mare număr de biți de 1 (minim 3 biți) și se afișează poziția acestuia în șir.
+
+Rotații și Afișare 
+    
+• Pentru fiecare octet, se calculează suma primilor 2 biți ($N$).
+
+• Octetul este rotit circular spre stânga cu $N$ poziții.
+
+• Rezultatele sunt afișate interactiv în formatele binar și hexazecimal.
 
 🚀 Instrucțiuni de Utilizare
 
