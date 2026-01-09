@@ -12,8 +12,11 @@ Proiectul a fost realizat utilizând instrumentele TASM și TLINK.
 Conform organizării interne a echipei noastre:
 
 • Student 1: Responsabil cu citirea datelor de la tastatură, conversia acestora din format ASCII în valori binare și gestionarea șirului în segmentul de date.
+
 • Student 2: Responsabil cu implementarea operațiilor pe biți, calculul componentelor cuvântului C și logica pentru rotațiile circulare.
+
 • Student 3: Responsabil cu scrierea codului pentru sortarea descrescătoare a șirului și logica de afișare a rezultatelor finale.
+
 • Student 4: Responsabil cu managementul depozitului GitHub, realizarea diagramei bloc și redactarea documentației tehnice a proiectului.
 
 🛠️ Funcționalități Principale
