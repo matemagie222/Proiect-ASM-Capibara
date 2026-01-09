@@ -21,8 +21,8 @@ Conform organizării interne a echipei noastre:
 
 🛠️ Funcționalități Principale
 1. Citirea și Validarea Datelor
-    • Programul acceptă între 8 și 16 octeți introduși în format hexazecimal (ex: 3F 7A 12...).
-    • Citirea se realizează prin întreruperea DOS INT 21h, funcția AH=0Ah.
+• Programul acceptă între 8 și 16 octeți introduși în format hexazecimal (ex: 3F 7A 12...).
+• Citirea se realizează prin întreruperea DOS INT 21h, funcția AH=0Ah.
 2. Calculul Cuvântului C (16 biți)
 Cuvântul C este generat astfel:
     • Biții 0-3: Rezultatul operației XOR între primii 4 biți ai primului octet și ultimii 4 biți ai ultimului octet.
