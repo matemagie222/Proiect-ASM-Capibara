@@ -20,6 +20,7 @@ Conform organizării interne a echipei noastre:
 • Student 4: Responsabil cu managementul depozitului GitHub, realizarea diagramei bloc și redactarea documentației tehnice a proiectului.
 
 🛠️ Funcționalități Principale
+
 Citirea și Validarea Datelor
 
 • Programul acceptă între 8 și 16 octeți introduși în format hexazecimal (ex: 3F 7A 12...).
