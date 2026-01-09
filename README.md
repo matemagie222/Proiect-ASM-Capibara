@@ -8,7 +8,9 @@ afișând rezultatele într-un format clar (binar și hexazecimal)33333333333333
 Proiectul a fost realizat utilizând instrumentele TASM și TLINK4.
 
 👥 Echipa și Responsabilități
-Conform organizării interne a echipei noastre5:
+
+Conform organizării interne a echipei noastre:
+
     • Student 1: Responsabil cu citirea datelor de la tastatură, conversia acestora din format ASCII în valori binare și gestionarea șirului în segmentul de date6.
     • Student 2: Responsabil cu implementarea operațiilor pe biți, calculul componentelor cuvântului C și logica pentru rotațiile circulare7.
     • Student 3: Responsabil cu scrierea codului pentru sortarea descrescătoare a șirului și logica de afișare a rezultatelor finale8.
