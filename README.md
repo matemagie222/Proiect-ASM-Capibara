@@ -1,4 +1,5 @@
 Proiect ASM - Prelucrarea și Manipularea Șirurilor de Octeți (8086)
+
 📝 Descriere Proiect
 Acest proiect constă în dezvoltarea unui program interactiv scris în limbaj de asamblare pentru arhitectura 8086 (16-biți)2. 
 Programul permite utilizatorului să introducă un șir de date, realizează calcule complexe pe biți, sortează datele și efectuează rotații circulare, 
