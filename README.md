@@ -21,13 +21,13 @@ Conform organizării interne a echipei noastre:
 
 🛠️ Funcționalități Principale
 
-Citirea și Validarea Datelor
+1. Citirea și Validarea Datelor
 
 • Programul acceptă între 8 și 16 octeți introduși în format hexazecimal (ex: 3F 7A 12...).
 
 • Citirea se realizează prin întreruperea DOS INT 21h, funcția AH=0Ah.
 
-Calculul Cuvântului C (16 biți)
+2. Calculul Cuvântului C (16 biți)
 
 Cuvântul C este generat astfel:
 
@@ -37,13 +37,13 @@ Cuvântul C este generat astfel:
 
 • Biții 8-15: Suma tuturor octeților din șir, calculată modulo 256.
 
-Manipularea Șirului
+3. Manipularea Șirului
 
 • Sortare: Șirul este ordonat descrescător folosind un algoritm de sortare eficient.
     
 • Analiza biților: Se determină octetul cu cel mai mare număr de biți de 1 (minim 3 biți) și se afișează poziția acestuia în șir.
 
-Rotații și Afișare 
+4. Rotații și Afișare 
     
 • Pentru fiecare octet, se calculează suma primilor 2 biți ($N$).
 
@@ -54,6 +54,9 @@ Rotații și Afișare
 🚀 Instrucțiuni de Utilizare
 
 Pentru a rula proiectul, aveți nevoie de un emulator (precum DOSBox) și utilitarele TASM:
-    1. Asamblare: tasm/zi nume_fisier.asm
-    2. Link-editare: tlink/v nume_fisier.obj
-    3. Execuție: nume_fisier.exe
+
+1. Asamblare: tasm/zi nume_fisier.asm
+
+2. Link-editare: tlink/v nume_fisier.obj
+    
+3. Execuție: nume_fisier.exe
