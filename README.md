@@ -34,6 +34,7 @@ Cuvântul C este generat astfel:
     • Rezultatele sunt afișate interactiv în formatele binar și hexazecimal21212121.
 
 🚀 Instrucțiuni de Utilizare
+
 Pentru a rula proiectul, aveți nevoie de un emulator (precum DOSBox) și utilitarele TASM:
     1. Asamblare: tasm/zi nume_fisier.asm
     2. Link-editare: tlink/v nume_fisier.obj
