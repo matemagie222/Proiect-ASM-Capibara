@@ -57,6 +57,4 @@ pop dx
 pop si
 pop di
 retn
-code ends
-end start
 
