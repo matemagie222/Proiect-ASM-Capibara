@@ -280,7 +280,7 @@ code segment
 	mov cl, bl
 	mov al, sir[si]
 	rol al, cl
-	mov sir1[si], al
+	mov sir[si], al
 
 	pop cx ; scot valoarea lui cx din stiva pentru a nu afecta loopul cand modific cl
 	inc si
@@ -289,6 +289,35 @@ code segment
   ret
   Rotiri_s2 ENDP
 
+  AfisareBaza2 PROC
+	mov bx, rez
+	mov cx, 16
+	afis_s2:
+	shl bx, 1
+	jc unu
+	
+	mov ah, 02h
+	mov dl, '0'
+	int 21h
+
+	continua:
+	loop afis_s2
+
+	jmp endAfisB2
+	
+	unu:
+	mov ah, 02h
+	mov dl, '1'
+	int 21h
+	jmp continua
+	
+	endAfisB2:
+
+	mov ah, 09h
+	mov dx, offset mesaj_new_line
+	int 21h
+  ret
+  AfisareBaza2 ENDP
 
 start:
     mov ax, data
@@ -325,6 +354,8 @@ start:
     dupa_max_biti:
 
     call pauza
+    
+    call AfisareBaza2    
 
     mov ax, 4C00h
     int 21h
