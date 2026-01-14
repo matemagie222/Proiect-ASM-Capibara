@@ -155,10 +155,41 @@ code segment
         pop ax
     ret
 
+; apeleaza max_biti_setati pentru a gasi pozitia cu numarul maxim de biti setati si apoi afiseaza mesajul de rezultat + endl
+    max_biti_setati_plus_afisare:
+        pushf
+        push bx
+        push ax
+        push dx
+
+        call max_biti_setati
+        cmp bl, 4
+        jb sub_4_biti_setati
+        minim_4_biti_setati:
+            mov dx, offset mesaj_biti_setati_max
+            call afisare_mesaj
+            mov al, bh
+            call afisare_al_hex
+            call endl
+            jmp dupa_max_biti
+        sub_4_biti_setati:
+            mov dx, offset mesaj_biti_setati_fail
+            call afisare_mesaj
+            call endl
+        dupa_max_biti:
+
+        pop dx
+        pop ax
+        pop bx
+        popf
+
+    ret
+
 ; afiseaza numarul din al in hexa, urmat de un spatiu
     afisare_al_hex:
         push ax
         push bx
+        push cx
         push si
         pushf
 
@@ -175,6 +206,7 @@ code segment
         int 21h
 
         mov cl, bh
+        mov si, cx
         mov dl, numtohex[si]
         int 21h
 
@@ -186,6 +218,7 @@ code segment
 
         popf
         pop si
+        pop cx
         pop bx
         pop ax
         
@@ -319,6 +352,32 @@ code segment
   ret
   AfisareBaza2 ENDP
 
+; afiseaza sirul din sir in format hex
+    afisare_sir_hex:
+        pushf
+        push cx
+        push si
+        
+        mov si, offset sir
+        cld
+
+        mov cl, l
+        mov ch, 0
+        jcxz final_afisare_sir_hex
+
+        repeta_afisare_sir_hex:
+            lodsb
+            call afisare_al_hex
+        loop repeta_afisare_sir_hex
+
+        final_afisare_sir_hex:
+
+        pop si
+        pop cx
+        popf
+
+    ret
+
 start:
     mov ax, data
     mov ds, ax
@@ -327,37 +386,36 @@ start:
     mov sp, 1024
 
 ; mesaj pentru input
+; todo citire
     mov dx, offset mesaj_input
     call afisare_mesaj
     call endl
     call pauza
 
-; todo citire
-; todo conversie, cuvantul C etc.
+; calcul cuvant C
     call CalculCuvC
-    ;call Rotiri_s2
-
-    call sort
-    call max_biti_setati
-    cmp bl, 4
-    jb sub_4_biti_setati
-    minim_4_biti_setati:
-        mov dx, offset mesaj_biti_setati_max
-        call afisare_mesaj
-        mov al, bh
-        call afisare_al_hex
-        call endl
-        jmp dupa_max_biti
-    sub_4_biti_setati:
-        mov dx, offset mesaj_biti_setati_fail
-        call afisare_mesaj
-        call endl
-
-    dupa_max_biti:
-
-    call pauza
-
+    mov dx, offset mesaj_cuvantul_C
+    call afisare_mesaj
     call AfisareBaza2
+
+; calculul pozitiei octetului cu cei mai mult biti de 0 (minim 4)
+    call max_biti_setati_plus_afisare
+
+; rotirea octetilor
+    call Rotiri_s2
+    mov dx, offset mesaj_sir_octeti_rotiti
+    call afisare_mesaj
+    call afisare_sir_hex
+    call endl
+
+; sortarea octetilor
+    call sort
+    mov dx, offset mesaj_sir_sortat
+    call afisare_mesaj
+    call afisare_sir_hex
+    call endl
+
+; todo afisare sir in binar
 
     mov ax, 4C00h
     int 21h
