@@ -1,4 +1,4 @@
-assume CS:code, DS:data
+assume CS:code, DS:data, SS:stiva
 
 data segment
     sir db 0AAh, 91h, 28h, 35h, 0B9h, 5Ch, 0FFh, 02h, 10h, 20h
@@ -21,7 +21,7 @@ data segment
 data ends
 
 stiva segment stack
-    db 512 dup (?)
+    dw 512 dup (0ABCDh)
 stiva ends
 
 code segment
@@ -322,6 +322,9 @@ code segment
 start:
     mov ax, data
     mov ds, ax
+    mov ax, stiva
+    mov ss, ax
+    mov sp, 1024
 
 ; mesaj pentru input
     mov dx, offset mesaj_input
