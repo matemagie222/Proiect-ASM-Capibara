@@ -1,7 +1,7 @@
 assume CS:code, DS:data, SS:stiva
 
 data segment
-    sir db 0AAh, 91h, 28h, 35h, 0B9h, 5Ch, 0FFh, 02h, 10h, 20h
+    sir db 16 dup (?)
     l db 10    
     numtohex db "0123456789ABCDEF"
 	 input db 34 dup (?)
