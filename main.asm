@@ -535,11 +535,8 @@ start:
 
 ;afisare sir in binar
    lea dx, mesaj_sir_binar
-   mov ah, 09h 
-   int 21h
-   lea dx, mesaj_new_line
-   mov ah, 09h
-   int 21h
+	call afisare_mesaj
+	call endl
    mov ax, offset sir 
    mov cl, l
    xor ch, ch 
