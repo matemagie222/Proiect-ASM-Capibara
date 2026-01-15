@@ -13,10 +13,13 @@ data segment
     mesaj_sir_octeti_rotiti db "Sirul dupa rotirea octetilor este: $"
     mesaj_sir_sortat db "Sirul dupa sortare este: $"
     mesaj_cuvantul_C db "Cuvantul C este: $"
-
+    mesaj_sir_binar db "Sirul in Binar: $"
     mesaj_new_line db 0Dh, 0Ah, '$'
     rez dw ? ; rez = cuv_C
     temp db ?
+    temp2 dw ?
+    binary db 16 dup (?) 
+    counter db ?
 
 data ends
 
@@ -377,7 +380,101 @@ code segment
         popf
 
     ret
-
+;ia sirul de caractere cu offset-ul in ax si il converteste in binar 
+ inputToBin:
+;la intrare: ax = offset-ul sirului citit de la tastatura (+2)
+;se presupune ca in main am mutat in cx lungimea sirului citit 
+push bx
+push cx
+push dx
+push si 
+push di
+mov si, ax 
+je fin
+mov di, offset binary
+repeat:
+cmp cx, 0 
+je fin
+mov al, byte ptr ds:[si]
+inc si
+dec cx 
+mov bl, byte ptr ds:[si]
+inc si 
+dec cx
+cmp al, '9'
+ja letter   
+sub al, '0'
+jmp multiply16
+letter:
+sub al, 37h
+multiply16: 
+mov dl, 16
+mul dl 
+mov temp2, ax
+cmp bl, '9'
+ja letter2
+sub bl, '0' 
+jmp addNumbers
+letter2:
+sub bl, 37h
+addNumbers:
+mov al, bl 
+xor ah, ah 
+add temp2, ax 
+mov bx, temp2
+xor bh, bh
+mov byte ptr ds:[di], bl
+inc di
+jmp repeat
+fin: 
+pop di 
+pop si
+pop dx
+pop cx
+pop bx
+ret
+; afisarea unui sir in binar
+printBin:
+;in ax avem offset-ul sirului care trebuie afisat in binar 
+;in cx avem lungimea sirului respectiv 
+push si 
+push bx
+mov si, ax 
+repeatSeq:
+cmp cx, 0 
+je finally
+mov bl, byte ptr ds:[si]
+xor bh, bh
+mov counter, 0 
+repeatBin:
+cmp counter, 8
+je next
+inc counter
+shl bl, 1
+jc printOne
+mov ah, 02h 
+mov dl, '0' 
+int 21h 
+jmp repeatBin
+printOne:
+mov ah, 02h
+mov dl, '1'
+int 21h
+jmp repeatBin
+next:
+inc si 
+dec cx
+lea dx, mesaj_new_line
+mov ah, 09h
+int 21h
+jmp repeatSeq
+finally:
+lea dx, mesaj_new_line
+mov ah, 09h
+int 21h
+pop bx
+pop si 
+ret
 start:
     mov ax, data
     mov ds, ax
@@ -386,11 +483,32 @@ start:
     mov sp, 1024
 
 ; mesaj pentru input
-; todo citire
     mov dx, offset mesaj_input
     call afisare_mesaj
     call endl
     call pauza
+;citire
+ mov si, offset input
+    mov byte ptr ds:[si], 32
+    lea dx, input 
+    mov ah, 0Ah
+    int 21h
+    call endl
+    inc si 
+    mov cl, byte ptr ds:[si]
+    xor ch, ch
+    mov l, cl 
+    inc si 
+    mov ax,si  
+    ;sir de caractere to binary 
+    call inputToBin
+    mov si, offset binary 
+    mov di, offset sir
+    mov cl, l
+    xor ch, ch
+    shr cx, 1
+    mov l, cl
+    rep movsb 
 
 ; calcul cuvant C
     call CalculCuvC
@@ -415,8 +533,17 @@ start:
     call afisare_sir_hex
     call endl
 
-; todo afisare sir in binar
-
+;afisare sir in binar
+   lea dx, mesaj_sir_binar
+   mov ah, 09h 
+   int 21h
+   lea dx, mesaj_new_line
+   mov ah, 09h
+   int 21h
+   mov ax, offset sir 
+   mov cl, l
+   xor ch, ch 
+   call printBin
     mov ax, 4C00h
     int 21h
 code ends
