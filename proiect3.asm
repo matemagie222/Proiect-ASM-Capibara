@@ -4,7 +4,7 @@ data segment
     sir db 16 dup (?)
     l db ?
     numtohex db "0123456789ABCDEF"
-    input db 34 dup (?)
+    input db 33, 0, 33 dup (?)
     mesaj_input db "Introduceti 8-16 octeti in format hexa: $"
     mesaj_input_fail db "Nu ati introdus un numar corect de octeti$"
     mesaj_biti_setati_max db "Numarul cu cei mai multi biti de 1 are pozitia: $"
@@ -489,7 +489,6 @@ start:
     call afisare_mesaj
     call endl
     mov si, offset input
-    mov byte ptr ds:[si], 32
     lea dx, input 
     mov ah, 0Ah
     int 21h
