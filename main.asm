@@ -2,10 +2,9 @@ assume CS:code, DS:data, SS:stiva
 
 data segment
     sir db 16 dup (?)
-    l db 10    
+    l db ?
     numtohex db "0123456789ABCDEF"
-	 input db 34 dup (?)
-
+    input db 33, 0, 33 dup (?)
     mesaj_input db "Introduceti 8-16 octeti in format hexa: $"
     mesaj_input_fail db "Nu ati introdus un numar corect de octeti$"
     mesaj_biti_setati_max db "Numarul cu cei mai multi biti de 1 are pozitia: $"
@@ -13,8 +12,8 @@ data segment
     mesaj_sir_octeti_rotiti db "Sirul dupa rotirea octetilor este: $"
     mesaj_sir_sortat db "Sirul dupa sortare este: $"
     mesaj_cuvantul_C db "Cuvantul C este: $"
-    mesaj_sir_binar db "Sirul in Binar: $"
     mesaj_new_line db 0Dh, 0Ah, '$'
+    mesaj_sir_binar db "Sirul in Binar: $"
     rez dw ? ; rez = cuv_C
     temp db ?
     temp2 dw ?
@@ -267,7 +266,7 @@ code segment
 	mov rez, ax
 
 
-	;------------Bitii 10-15
+	;------------Bitii 8-15
 	mov cl, l
 	mov ch, 0
 	; cx= l
@@ -475,20 +474,21 @@ int 21h
 pop bx
 pop si 
 ret
+
 start:
     mov ax, data
     mov ds, ax
+    mov es, ax
     mov ax, stiva
     mov ss, ax
     mov sp, 1024
 
 ; mesaj pentru input
+; todo citire
     mov dx, offset mesaj_input
     call afisare_mesaj
     call endl
-;citire
- mov si, offset input
-    mov byte ptr ds:[si], 32
+    mov si, offset input
     lea dx, input 
     mov ah, 0Ah
     int 21h
@@ -508,7 +508,7 @@ start:
     shr cx, 1
     mov l, cl
     rep movsb 
-
+    
 ; calcul cuvant C
     call CalculCuvC
     mov dx, offset mesaj_cuvantul_C
@@ -532,14 +532,18 @@ start:
     call afisare_sir_hex
     call endl
 
-;afisare sir in binar
+; afisare sir in binar
    lea dx, mesaj_sir_binar
-	call afisare_mesaj
-	call endl
+   mov ah, 09h 
+   int 21h
+   lea dx, mesaj_new_line
+   mov ah, 09h
+   int 21h
    mov ax, offset sir 
    mov cl, l
    xor ch, ch 
    call printBin
+
     mov ax, 4C00h
     int 21h
 code ends
