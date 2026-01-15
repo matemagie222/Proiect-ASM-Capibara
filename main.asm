@@ -486,7 +486,6 @@ start:
     mov dx, offset mesaj_input
     call afisare_mesaj
     call endl
-    call pauza
 ;citire
  mov si, offset input
     mov byte ptr ds:[si], 32
