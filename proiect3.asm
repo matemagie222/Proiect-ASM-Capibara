@@ -266,7 +266,7 @@ code segment
 	mov rez, ax
 
 
-	;------------Bitii 10-15
+	;------------Bitii 8-15
 	mov cl, l
 	mov ch, 0
 	; cx= l
